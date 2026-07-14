@@ -1,15 +1,35 @@
-- name: exwxsz
-  # You may pin to the exact commit or the version.
-  # uses: stats-organization/github-readme-stats-action@f9d8133845f40d659a754f78b8484983ba766448
-  uses: stats-organization/github-readme-stats-action@v2.0.1
-  with:
-    # Card type to generate (stats, top-langs, pin, wakatime, gist).
-    card: 
-    # Options for the card (query string or JSON).
-    options: # optional, default is 
-    # Output path for SVG file (relative path; include filename with .svg).
-    path: # optional, default is 
-    # GitHub token (PAT or GITHUB_TOKEN).
-    token: # optional, default is 
-    # Version of @stats-organization/github-readme-stats-core to use internally.
-    core_version: # optional, default is v2
+name: Generate GitHub Stats
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate stats card
+        uses: stats-organization/github-readme-stats-action@v2.0.1
+        with:
+          card: stats
+          options: username=exwxsz&show_icons=true&include_all_commits=true&theme=buefy
+          path: profile/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate top languages card
+        uses: stats-organization/github-readme-stats-action@v2.0.1
+        with:
+          card: top-langs
+          options: username=exwxsz&layout=compact&theme=buefy
+          path: profile/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit generated files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update github stats"
