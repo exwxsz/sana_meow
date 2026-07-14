@@ -19,7 +19,7 @@ jobs:
         uses: readme-tools/github-readme-stats-action@v1
         with:
           card: stats
-          options: username=${{ github.repository_owner }}&count_private=true&theme=buefy&show_icons=true&rank_icon=github&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged,prs_merged_percentage,prs_commented,prs_reviewed,issues_commented
+          options: username=${{ github.repository_owner }}&count_private=true&theme=buefy&show_icons=true&rank_icon=github&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged,prs_merged_percentage,prs_commented,prs_reviewed,issues_commented,issues_closed,contributed_to
           path: profile/stats.svg
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -27,7 +27,7 @@ jobs:
         uses: readme-tools/github-readme-stats-action@v1
         with:
           card: top-langs
-          options: username=${{ github.repository_owner }}&layout=compact&theme=buefy
+          options: username=${{ github.repository_owner }}&layout=compact&theme=buefy&langs_count=10
           path: profile/top-langs.svg
           token: ${{ secrets.GITHUB_TOKEN }}
 
